@@ -4,6 +4,7 @@
 
 azure-functions
 pyodbc
+azure.storage.blob
 numpy
 -f https://download.pytorch.org/whl/torch_stable.html
 torch==1.7.0+cpu 
