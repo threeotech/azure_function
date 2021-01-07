@@ -22,6 +22,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         video_frame.append(item["video_frame"])
         animation_frame.append(item["animation_frame"])
     insert_frame = f'INSERT INTO [dbo].[Frame] (Word_ID,Video_Frame,Animation_Frame) VALUES (?,?,?)' 
-    cursor.executemany(insert_frame,video_frame,animation_frame)
+    value_list = [(word_id,v,a) for v,a in zip(video_frame,animation_frame)]
+    cursor.fast_executemany = True
+    cursor.executemany(insert_frame,value_list)
     cnxn.commit()
     return func.HttpResponse("DONE",status_code=200)
